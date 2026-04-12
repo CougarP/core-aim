@@ -1,18 +1,6 @@
-bin/
-obj/
-publish/
-*.user
-*.suo
-.vs/
-.idea/
-*.DotSettings
-Thumbs.db
-Desktop.ini
-.DS_Store
-auth.bin
-config/appsettings.json
-CapturedImages/
-Models/*.onnx
-runs/
-*.log
-packages/
+# Ignore everything
+*
+# Except release folder
+!Release/
+!Release/**
+!.gitignore
