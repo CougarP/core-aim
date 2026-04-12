@@ -1,6 +1,6 @@
-# Ignore everything
+# Ignore everything — source code never goes to the repo
 *
-# Except release folder
-!Release/
-!Release/**
+
+# Only allow README and gitignore
+!README.md
 !.gitignore
