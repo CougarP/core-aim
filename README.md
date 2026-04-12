@@ -14,9 +14,9 @@ Grab the latest build from the [**Releases**](https://github.com/CougarP/Core_Ai
 
 ## 🎯 Supported devices
 
-- 🔹 **Titan Two**
-- 🔹 **MAKCU** (CH9329)
-- 🔹 **KMBox Net**
+- 🔹 **Titan Two** — ✅ Supported
+- 🔹 **KMBox Net** — ✅ Supported
+- 🔹 **MAKCU** (CH9329) — 🔜 Lançamento breve
 
 ## 🎮 Supported platforms
 
