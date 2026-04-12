@@ -1,10 +1,27 @@
 # Core_Aim
 
-**Computer-vision aim assist system for consoles — no anti-cheat detection risk.**
+**Assistive targeting tool designed for players with motor, neurological and physical disabilities.**
 
-Core_Aim runs on your PC and sends input through external hardware (Titan Two, MAKCU, or KMBox Net), so the console's anti-cheat does not see any software-level injection.
+Core_Aim is an accessibility-focused computer-vision system that helps compensate for reduced fine-motor control, allowing players with disabilities to enjoy games that would otherwise be inaccessible to them.
 
 ---
+
+## 🦽 Designed for
+
+People living with conditions that affect fine-motor control, including:
+
+- Parkinson's disease
+- Multiple sclerosis
+- Cerebral palsy
+- Muscular dystrophy
+- Stroke sequelae
+- Spinal cord injuries
+- Rheumatoid arthritis
+- ALS (Amyotrophic Lateral Sclerosis)
+- Myasthenia gravis
+- Essential tremor
+- Upper-limb amputation
+- Peripheral neuropathy
 
 ## 📥 Download
 
@@ -28,7 +45,7 @@ Grab the latest build from the [**Releases**](https://github.com/CougarP/Core_Ai
 
 - Call of Duty: Black Ops 6
 - Call of Duty: Black Ops 7
-- Warzone
+- Call of Duty: Warzone
 
 ## 💻 Minimum requirements
 
@@ -39,7 +56,7 @@ Grab the latest build from the [**Releases**](https://github.com/CougarP/Core_Ai
 
 ## ⚙️ Setup
 
-1. Download the latest `Core_Aim.zip` from [Releases](https://github.com/CougarP/Core_Aim_pro/releases/latest)
+1. Download the latest `Core_Aim_pro.zip` from [Releases](https://github.com/CougarP/Core_Aim_pro/releases/latest)
 2. Extract anywhere
 3. Run `Core_Aim.exe`
 4. Select your device in the app
@@ -50,6 +67,14 @@ Full setup guide is available in the official Discord server.
 ## 💬 Community & Support
 
 Join our Discord for downloads, configuration help, bug reports and announcements.
+
+## ⚠️ Disclaimer
+
+This software is intended **exclusively for accessibility purposes**, to assist players with disabilities.
+
+- **Do not use this software in online/multiplayer games.** Respect the license agreement and terms of service of each game.
+- The developer of Core_Aim **is not responsible** for bans, suspensions, or any other actions taken against your account due to misuse of this software.
+- By downloading and using Core_Aim, you agree to use it responsibly and in compliance with each game's terms of service.
 
 ---
 
