@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36518.9
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core_Aim", "Core_Aim\Core_Aim.csproj", "{9368B37D-6D53-4601-B099-653C82D144F2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C7ADACB0-ECF7-4CEE-94FA-E798A39D646A} = {C7ADACB0-ECF7-4CEE-94FA-E798A39D646A}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt2_bridge", "..\..\ProjetoTT2\tt2_bridge\tt2_bridge\tt2_bridge.vcxproj", "{C7ADACB0-ECF7-4CEE-94FA-E798A39D646A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KMBox.NET", "KMBox.NET\KMBox.NET.csproj", "{FA35DFE2-85C6-542E-F5BC-A355D53D84F5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9368B37D-6D53-4601-B099-653C82D144F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9368B37D-6D53-4601-B099-653C82D144F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9368B37D-6D53-4601-B099-653C82D144F2}.Debug|x64.ActiveCfg = Debug|x64
+		{9368B37D-6D53-4601-B099-653C82D144F2}.Debug|x64.Build.0 = Debug|x64
+		{9368B37D-6D53-4601-B099-653C82D144F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9368B37D-6D53-4601-B099-653C82D144F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9368B37D-6D53-4601-B099-653C82D144F2}.Release|x64.ActiveCfg = Release|x64
+		{9368B37D-6D53-4601-B099-653C82D144F2}.Release|x64.Build.0 = Release|x64
+		{FA35DFE2-85C6-542E-F5BC-A355D53D84F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA35DFE2-85C6-542E-F5BC-A355D53D84F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA35DFE2-85C6-542E-F5BC-A355D53D84F5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FA35DFE2-85C6-542E-F5BC-A355D53D84F5}.Debug|x64.Build.0 = Debug|Any CPU
+		{FA35DFE2-85C6-542E-F5BC-A355D53D84F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA35DFE2-85C6-542E-F5BC-A355D53D84F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA35DFE2-85C6-542E-F5BC-A355D53D84F5}.Release|x64.ActiveCfg = Release|Any CPU
+		{FA35DFE2-85C6-542E-F5BC-A355D53D84F5}.Release|x64.Build.0 = Release|Any CPU
+		{C7ADACB0-ECF7-4CEE-94FA-E798A39D646A}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{C7ADACB0-ECF7-4CEE-94FA-E798A39D646A}.Debug|Any CPU.Build.0 = Debug|x64
+		{C7ADACB0-ECF7-4CEE-94FA-E798A39D646A}.Debug|x64.ActiveCfg = Debug|x64
+		{C7ADACB0-ECF7-4CEE-94FA-E798A39D646A}.Debug|x64.Build.0 = Debug|x64
+		{C7ADACB0-ECF7-4CEE-94FA-E798A39D646A}.Release|Any CPU.ActiveCfg = Release|x64
+		{C7ADACB0-ECF7-4CEE-94FA-E798A39D646A}.Release|Any CPU.Build.0 = Release|x64
+		{C7ADACB0-ECF7-4CEE-94FA-E798A39D646A}.Release|x64.ActiveCfg = Release|x64
+		{C7ADACB0-ECF7-4CEE-94FA-E798A39D646A}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {80E3F517-19AA-4E8B-921F-17EA8E5B3444}
+	EndGlobalSection
+EndGlobal

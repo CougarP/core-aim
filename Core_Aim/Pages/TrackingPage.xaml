@@ -1,0 +1,100 @@
+<UserControl x:Class="Core_Aim.Pages.TrackingPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ctrl="clr-namespace:Core_Aim.Controls"
+             xmlns:loc="clr-namespace:Core_Aim.Services"
+             xmlns:converters="clr-namespace:Core_Aim.Converters">
+    <UserControl.Resources>
+        <converters:AppStatusConverter x:Key="StatusConverter"/>
+        <converters:AppColorConverter x:Key="ColorConverter"/>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </UserControl.Resources>
+
+    <StackPanel Margin="16,14,14,14">
+        <CheckBox IsChecked="{Binding IsTRKPinned, Mode=TwoWay}" HorizontalAlignment="Right" Margin="0,0,0,4" Cursor="Hand" Style="{StaticResource PinCheck}" />
+        <TextBlock Text="{loc:Loc TrackCtrl}" Style="{StaticResource SectionTitle}" />
+
+        <Border Style="{StaticResource Card}">
+            <StackPanel>
+                <!-- KMBox tracking -->
+                <StackPanel Visibility="{Binding SettingsViewModel.IsKmBoxSelected, Converter={StaticResource BoolToVis}}">
+                    <StackPanel Visibility="{Binding SettingsViewModel.ShowYoloAimControls, Converter={StaticResource BoolToVis}}">
+                        <TextBlock Text="▸ YOLO ▸" Style="{StaticResource SubTitle}" />
+                        <Grid Margin="0,0,0,3"><TextBlock Text="{loc:Loc Speed}" Style="{StaticResource PLabel}" /><TextBlock Text="{Binding SettingsViewModel.TrackingSpeedHIP, StringFormat=F2}" Style="{StaticResource PValueP}" /></Grid>
+                        <ctrl:NumericSlider Minimum="0.05" Maximum="0.88" SmallChange="0.01" LargeChange="0.05" Value="{Binding SettingsViewModel.TrackingSpeedHIP, Mode=TwoWay}" Tint="#FFB400FF" Margin="0,0,0,8" />
+                        <Grid Margin="0,0,0,3"><TextBlock Text="{loc:Loc Smoothness}" Style="{StaticResource PLabel}" /><TextBlock Text="{Binding SettingsViewModel.AimResponseCurve, StringFormat=F2}" Style="{StaticResource PValueP}" /></Grid>
+                        <ctrl:NumericSlider Minimum="0.10" Maximum="0.90" SmallChange="0.02" LargeChange="0.1" Value="{Binding SettingsViewModel.AimResponseCurve, Mode=TwoWay}" Tint="#FFB400FF" Margin="0,0,0,8" />
+                        <Grid Margin="0,0,0,3"><TextBlock Text="{loc:Loc DeadZone}" Style="{StaticResource PLabel}" /><TextBlock Text="{Binding SettingsViewModel.AimDeadZonePx, StringFormat=F1}" Style="{StaticResource PValueA}" /></Grid>
+                        <ctrl:NumericSlider Minimum="0" Maximum="10" SmallChange="0.5" LargeChange="1" Value="{Binding SettingsViewModel.AimDeadZonePx, Mode=TwoWay}" Tint="#FFFFE000" Margin="0,0,0,8" />
+                    </StackPanel>
+                    <StackPanel Visibility="{Binding SettingsViewModel.ShowPixelBotAimControls, Converter={StaticResource BoolToVis}}">
+                        <TextBlock Text="▸ PIXEL BOT ▸" Style="{StaticResource SubTitle}" />
+                        <Grid Margin="0,0,0,3"><TextBlock Text="{loc:Loc SpeedPB100}" Style="{StaticResource PLabel}" /><TextBlock Text="{Binding SettingsViewModel.PixelBotTrackingSpeed, StringFormat=N0}" Style="{StaticResource PValueP}" /></Grid>
+                        <ctrl:NumericSlider Minimum="1" Maximum="100" SmallChange="1" LargeChange="5" Value="{Binding SettingsViewModel.PixelBotTrackingSpeed, Mode=TwoWay}" Tint="#FFB400FF" Margin="0,0,0,8" />
+                        <Grid Margin="0,0,0,3"><TextBlock Text="{loc:Loc SmoothPB99}" Style="{StaticResource PLabel}" /><TextBlock Text="{Binding SettingsViewModel.PixelBotAimResponse, StringFormat=N0}" Style="{StaticResource PValueP}" /></Grid>
+                        <ctrl:NumericSlider Minimum="1" Maximum="99" SmallChange="1" LargeChange="5" Value="{Binding SettingsViewModel.PixelBotAimResponse, Mode=TwoWay}" Tint="#FFB400FF" Margin="0,0,0,8" />
+                        <Grid Margin="0,0,0,3"><TextBlock Text="{loc:Loc DeadZonePB}" Style="{StaticResource PLabel}" /><TextBlock Text="{Binding SettingsViewModel.PixelBotDeadZone, StringFormat=F1}" Style="{StaticResource PValueA}" /></Grid>
+                        <ctrl:NumericSlider Minimum="0.5" Maximum="20" SmallChange="0.5" LargeChange="2" Value="{Binding SettingsViewModel.PixelBotDeadZone, Mode=TwoWay}" Tint="#FFFFE000" Margin="0,0,0,8" />
+                    </StackPanel>
+                </StackPanel>
+                <!-- Titan Two tracking -->
+                <StackPanel Visibility="{Binding SettingsViewModel.IsTitanSelected, Converter={StaticResource BoolToVis}}">
+                    <TextBlock Text="▸ TITAN TWO ▸" Style="{StaticResource SubTitle}" />
+                    <Grid Margin="0,0,0,3"><TextBlock Text="{loc:Loc SpeedHIP}" Style="{StaticResource PLabel}" /><TextBlock Text="{Binding SettingsViewModel.TT2SpeedHIP, StringFormat=F2}" Style="{StaticResource PValueP}" /></Grid>
+                    <ctrl:NumericSlider Minimum="0.10" Maximum="5.00" SmallChange="0.05" LargeChange="0.25" Value="{Binding SettingsViewModel.TT2SpeedHIP, Mode=TwoWay}" Tint="#FFB400FF" Margin="0,0,0,8" />
+                    <Grid Margin="0,0,0,3"><TextBlock Text="{loc:Loc SpeedADS}" Style="{StaticResource PLabel}" /><TextBlock Text="{Binding SettingsViewModel.TT2SpeedADS, StringFormat=F2}" Style="{StaticResource PValueP}" /></Grid>
+                    <ctrl:NumericSlider Minimum="0.10" Maximum="5.00" SmallChange="0.05" LargeChange="0.25" Value="{Binding SettingsViewModel.TT2SpeedADS, Mode=TwoWay}" Tint="#FFB400FF" Margin="0,0,0,8" />
+                    <Grid Margin="0,0,0,3"><TextBlock Text="{loc:Loc Boost}" Style="{StaticResource PLabel}" /><TextBlock Text="{Binding SettingsViewModel.TT2SpeedBoost, StringFormat=F1}" Style="{StaticResource PValueP}" /></Grid>
+                    <ctrl:NumericSlider Minimum="0.5" Maximum="10.0" SmallChange="0.1" LargeChange="0.5" Value="{Binding SettingsViewModel.TT2SpeedBoost, Mode=TwoWay}" Tint="#FFB400FF" Margin="0,0,0,8" />
+                    <Grid Margin="0,0,0,3"><TextBlock Text="{loc:Loc MinForce}" Style="{StaticResource PLabel}" /><TextBlock Text="{Binding SettingsViewModel.TT2MinStick, StringFormat=F0}" Style="{StaticResource PValueA}" /></Grid>
+                    <ctrl:NumericSlider Minimum="0" Maximum="50" SmallChange="1" LargeChange="5" Value="{Binding SettingsViewModel.TT2MinStick, Mode=TwoWay}" Tint="#FFFFE000" Margin="0,0,0,8" />
+                    <Grid Margin="0,0,0,3"><TextBlock Text="{loc:Loc Damping}" Style="{StaticResource PLabel}" /><TextBlock Text="{Binding SettingsViewModel.TT2Kd, StringFormat=F2}" Style="{StaticResource PValueA}" /></Grid>
+                    <ctrl:NumericSlider Minimum="0.00" Maximum="3.00" SmallChange="0.01" LargeChange="0.10" Value="{Binding SettingsViewModel.TT2Kd, Mode=TwoWay}" Tint="#FFFFE000" Margin="0,0,0,10" />
+                    <TextBlock Text="{loc:Loc ResponseCurve}" Style="{StaticResource PLabel}" Margin="0,0,0,6" />
+                    <ComboBox SelectedIndex="{Binding SettingsViewModel.TT2CurveModel, Mode=TwoWay}" Margin="0,0,0,12">
+                        <ComboBoxItem Content="{loc:Loc Curve0}" />
+                        <ComboBoxItem Content="{loc:Loc Curve1}" />
+                        <ComboBoxItem Content="{loc:Loc Curve2}" />
+                        <ComboBoxItem Content="{loc:Loc Curve3}" />
+                        <ComboBoxItem Content="{loc:Loc Curve4}" />
+                        <ComboBoxItem Content="{loc:Loc Curve5}" />
+                        <ComboBoxItem Content="{loc:Loc Curve6}" />
+                    </ComboBox>
+                </StackPanel>
+                <!-- Shared -->
+                <Grid Margin="0,0,0,3"><TextBlock Text="{loc:Loc TrackFov}" Style="{StaticResource PLabel}" /><TextBlock Text="{Binding SettingsViewModel.RestrictedTracking, StringFormat={}{0}%}" Style="{StaticResource PValueG}" /></Grid>
+                <ctrl:NumericSlider Minimum="10" Maximum="100" SmallChange="5" LargeChange="10" Value="{Binding SettingsViewModel.RestrictedTracking, Mode=TwoWay}" Tint="#FF00FF9D" Margin="0,0,0,10" />
+                <Grid Margin="0,0,0,8">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                    <TextBlock Text="{loc:Loc AutoTune}" Style="{StaticResource PLabel}" Foreground="{StaticResource TxtPri}" />
+                    <CheckBox Grid.Column="1" IsChecked="{Binding SettingsViewModel.AutoTuneEnabled, Mode=TwoWay}" />
+                </Grid>
+                <Border Background="#0D1017" CornerRadius="8" Padding="10,6" BorderBrush="{StaticResource Border1}" BorderThickness="1">
+                    <TextBlock Text="{Binding SettingsViewModel.AutoTuneStatus}" FontSize="9.5" Foreground="#64748B" TextWrapping="Wrap" LineHeight="15" />
+                </Border>
+            </StackPanel>
+        </Border>
+
+        <!-- Anti-Recoil (KmBox only) -->
+        <Border Visibility="{Binding SettingsViewModel.IsKmBoxSelected, Converter={StaticResource BoolToVis}}"
+                Style="{StaticResource Card}">
+            <StackPanel>
+                <TextBlock Text="▸ ANTI-RECOIL ▸" Style="{StaticResource SubsectionLabel}" />
+                <Grid Margin="0,0,0,8">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                    <TextBlock Text="{loc:Loc EnableRecoil}" Style="{StaticResource PLabel}" />
+                    <CheckBox Grid.Column="1" IsChecked="{Binding SettingsViewModel.RecoilEnabledKm, Mode=TwoWay}" />
+                </Grid>
+                <StackPanel Visibility="{Binding SettingsViewModel.RecoilEnabledKm, Converter={StaticResource BoolToVis}}">
+                    <Grid Margin="0,0,0,3"><TextBlock Text="{loc:Loc RecoilVert}" Style="{StaticResource PLabel}" /><TextBlock Text="{Binding SettingsViewModel.RecoilVerticalKm}" Style="{StaticResource PValueG}" /></Grid>
+                    <ctrl:NumericSlider Minimum="0" Maximum="30" SmallChange="1" LargeChange="2" Value="{Binding SettingsViewModel.RecoilVerticalKm, Mode=TwoWay}" Tint="#FF00FF9D" Margin="0,0,0,8" />
+                    <Grid Margin="0,0,0,3"><TextBlock Text="{loc:Loc RecoilHoriz}" Style="{StaticResource PLabel}" /><TextBlock Text="{Binding SettingsViewModel.RecoilHorizontalKm}" Style="{StaticResource PValueG}" /></Grid>
+                    <ctrl:NumericSlider Minimum="-20" Maximum="20" SmallChange="1" LargeChange="2" Value="{Binding SettingsViewModel.RecoilHorizontalKm, Mode=TwoWay}" Tint="#FF00FF9D" Margin="0,0,0,8" />
+                    <Grid Margin="0,0,0,3"><TextBlock Text="{loc:Loc Interval}" Style="{StaticResource PLabel}" /><TextBlock Text="{Binding SettingsViewModel.RecoilIntervalKm}" Style="{StaticResource PValueA}" /></Grid>
+                    <ctrl:NumericSlider Minimum="10" Maximum="200" SmallChange="1" LargeChange="10" Value="{Binding SettingsViewModel.RecoilIntervalKm, Mode=TwoWay}" Tint="#FFFFE000" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+
+</UserControl>

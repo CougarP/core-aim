@@ -1,0 +1,91 @@
+<UserControl x:Class="Core_Aim.Pages.OverlayPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ctrl="clr-namespace:Core_Aim.Controls"
+             xmlns:loc="clr-namespace:Core_Aim.Services"
+             xmlns:converters="clr-namespace:Core_Aim.Converters">
+    <UserControl.Resources>
+        <converters:AppStatusConverter x:Key="StatusConverter"/>
+        <converters:AppColorConverter x:Key="ColorConverter"/>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </UserControl.Resources>
+
+    <StackPanel Margin="16,14,14,14">
+        <CheckBox IsChecked="{Binding IsOVLPinned, Mode=TwoWay}" HorizontalAlignment="Right" Margin="0,0,0,4" Cursor="Hand" Style="{StaticResource PinCheck}" />
+        <TextBlock Text="{loc:Loc Overlay}" Style="{StaticResource SectionTitle}" />
+
+        <!-- Metrics -->
+        <Border Style="{StaticResource Card}">
+            <StackPanel>
+                <TextBlock Text="▸ MÉTRICAS" Style="{StaticResource SubsectionLabel}" />
+                <Grid Margin="0,0,0,4">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                    <TextBlock Text="{loc:Loc ShowMetrics}" Style="{StaticResource PLabel}" VerticalAlignment="Center" />
+                    <CheckBox Grid.Column="1" IsChecked="{Binding SettingsViewModel.ShowMetrics, Mode=TwoWay}" />
+                </Grid>
+                <TextBlock Text="{loc:Loc DragMetrics}" FontSize="9.5" Foreground="{StaticResource TxtDim}" TextWrapping="Wrap" />
+            </StackPanel>
+        </Border>
+
+        <!-- FOV -->
+        <Border Style="{StaticResource Card}">
+            <StackPanel>
+                <TextBlock Text="▸ FOV" Style="{StaticResource SubsectionLabel}" />
+                <Grid Margin="0,0,0,8">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                    <TextBlock Text="{loc:Loc ShowFov}" Style="{StaticResource PLabel}" VerticalAlignment="Center" />
+                    <CheckBox Grid.Column="1" IsChecked="{Binding SettingsViewModel.ShowFov, Mode=TwoWay}" />
+                </Grid>
+                <Grid Margin="0,0,0,3"><TextBlock Text="{loc:Loc FovSize}" Style="{StaticResource PLabel}" /><TextBlock Text="{Binding SettingsViewModel.FovSize, StringFormat=N0}" Style="{StaticResource PValueO}" /></Grid>
+                <ctrl:NumericSlider Minimum="50" Maximum="800" SmallChange="5" LargeChange="50" Value="{Binding SettingsViewModel.FovSize, Mode=TwoWay}" Tint="#FFFF8800" Margin="0,0,0,8" />
+                <TextBlock Text="{loc:Loc FovThickness}" Style="{StaticResource PLabel}" Margin="0,0,0,4" />
+                <ComboBox SelectedIndex="{Binding SettingsViewModel.FovThicknessIndex, Mode=TwoWay}" Margin="0,0,0,8">
+                    <ComboBoxItem>1 px</ComboBoxItem><ComboBoxItem>2 px</ComboBoxItem><ComboBoxItem>3 px</ComboBoxItem>
+                </ComboBox>
+                <TextBlock Text="{loc:Loc FovStyle}" Style="{StaticResource PLabel}" Margin="0,0,0,4" />
+                <ComboBox SelectedIndex="{Binding SettingsViewModel.FovStyleIndex, Mode=TwoWay}" Margin="0,0,0,8">
+                    <ComboBoxItem><TextBlock Text="{loc:Loc Circle}" /></ComboBoxItem>
+                    <ComboBoxItem><TextBlock Text="{loc:Loc Square}" /></ComboBoxItem>
+                </ComboBox>
+                <Grid Margin="0,0,0,4">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /><ColumnDefinition Width="8" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                    <TextBlock Text="{loc:Loc FovColor}" Style="{StaticResource PLabel}" VerticalAlignment="Center" />
+                    <TextBlock Grid.Column="1" Text="{Binding SettingsViewModel.FovColorHex}" FontSize="10" FontFamily="{StaticResource MonoFont}" Foreground="{Binding SettingsViewModel.FovColorBrush}" VerticalAlignment="Center" />
+                    <Button Grid.Column="3" Command="{Binding SettingsViewModel.PickFovColorCommand}" Width="36" Height="22" Background="{Binding SettingsViewModel.FovColorBrush}" BorderBrush="{StaticResource Border2}" BorderThickness="1" Cursor="Hand" />
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <!-- Bounding Boxes -->
+        <Border Style="{StaticResource Card}">
+            <StackPanel>
+                <TextBlock Text="▸ CAIXAS" Style="{StaticResource SubsectionLabel}" />
+                <Grid Margin="0,0,0,8">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                    <TextBlock Text="{loc:Loc ShowBox}" Style="{StaticResource PLabel}" VerticalAlignment="Center" />
+                    <CheckBox Grid.Column="1" IsChecked="{Binding SettingsViewModel.Settings.ShowBoundingBoxes, Mode=TwoWay}" />
+                </Grid>
+                <StackPanel IsEnabled="{Binding SettingsViewModel.Settings.ShowBoundingBoxes}">
+                    <TextBlock Text="{loc:Loc BoxStyle}" Style="{StaticResource PLabel}" Margin="0,0,0,4" />
+                    <ComboBox SelectedIndex="{Binding SettingsViewModel.Settings.BoxStyle, Mode=TwoWay}" Margin="0,0,0,8">
+                        <ComboBoxItem Content="{loc:Loc BoxStyleFull}" /><ComboBoxItem Content="{loc:Loc BoxStyleCorners}" /><ComboBoxItem Content="{loc:Loc BoxStyleRound}" />
+                    </ComboBox>
+                    <TextBlock Text="{loc:Loc BoxThickness}" Style="{StaticResource PLabel}" Margin="0,0,0,4" />
+                    <ComboBox SelectedIndex="{Binding SettingsViewModel.Settings.BoxThicknessIndex, Mode=TwoWay}" Margin="0,0,0,8">
+                        <ComboBoxItem>1 px</ComboBoxItem><ComboBoxItem>2 px</ComboBoxItem><ComboBoxItem>3 px</ComboBoxItem>
+                    </ComboBox>
+                    <Grid Margin="0,0,0,6">
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                        <TextBlock Text="{loc:Loc BoxFill}" Style="{StaticResource PLabel}" VerticalAlignment="Center" />
+                        <CheckBox Grid.Column="1" IsChecked="{Binding SettingsViewModel.Settings.BoxFillEnabled, Mode=TwoWay}" />
+                    </Grid>
+                    <StackPanel Visibility="{Binding SettingsViewModel.Settings.BoxFillEnabled, Converter={StaticResource BoolToVis}}">
+                        <Grid Margin="0,0,0,3"><TextBlock Text="{loc:Loc BoxAlpha}" Style="{StaticResource PLabel}" /><TextBlock Text="{Binding SettingsViewModel.Settings.BoxFillAlpha}" Style="{StaticResource PValueB}" /></Grid>
+                        <ctrl:NumericSlider Minimum="5" Maximum="200" SmallChange="5" LargeChange="20" Value="{Binding SettingsViewModel.Settings.BoxFillAlpha, Mode=TwoWay}" Tint="#FF80E8FF" />
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+
+</UserControl>

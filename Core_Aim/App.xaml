@@ -1,0 +1,24 @@
+<Application x:Class="Core_Aim.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Themes/PhantomTokens.xaml"/>
+                <ResourceDictionary Source="/Themes/PhantomTypography.xaml"/>
+                <ResourceDictionary Source="/Themes/PhantomAnimations.xaml"/>
+                <ResourceDictionary Source="/Themes/PhantomBackground.xaml"/>
+                <ResourceDictionary Source="/Themes/PhantomStyles.xaml"/>
+                <!-- Phantom V2 control styles (spec §4-§6) -->
+                <ResourceDictionary Source="/Styles/PhantomSlider.xaml"/>
+                <ResourceDictionary Source="/Styles/PhantomCheckBox.xaml"/>
+                <ResourceDictionary Source="/Styles/PhantomRadioButton.xaml"/>
+                <ResourceDictionary Source="/Styles/PhantomComboBox.xaml"/>
+                <ResourceDictionary Source="/Styles/PhantomButton.xaml"/>
+                <ResourceDictionary Source="/Styles/PhantomTextBox.xaml"/>
+                <!-- Legacy MainWindow styles (Card, PinCheck, BtnSmall, NavTab, etc.) used by extracted Pages -->
+                <ResourceDictionary Source="/Themes/PhantomAppStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

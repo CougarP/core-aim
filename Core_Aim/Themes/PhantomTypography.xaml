@@ -1,0 +1,93 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         PHANTOM TYPOGRAPHY
+         Phantom uses 3 typeface roles. We embed Rajdhani / Share Tech Mono
+         when the .ttf files are dropped into /Fonts. Until then we fall
+         back to Consolas / Segoe UI Semibold which match the visual style.
+         ═══════════════════════════════════════════════════════════════ -->
+
+    <!-- Display: headers, glitch text, big numbers -->
+    <!-- Note: pasta /Fonts/ vazia → usar Segoe UI Semibold como fallback (visual próximo de Rajdhani) -->
+    <FontFamily x:Key="DisplayFont">Segoe UI Semibold</FontFamily>
+
+    <!-- Mono: data, telemetry, code-like labels -->
+    <FontFamily x:Key="MonoFont">Consolas</FontFamily>
+
+    <!-- UI: buttons, body, labels -->
+    <FontFamily x:Key="UiFont">Segoe UI</FontFamily>
+
+    <!-- ═══ SIZES ════════════════════════════════════════════════════ -->
+    <sys:Double x:Key="FsXxs">9</sys:Double>
+    <sys:Double x:Key="FsXs">10</sys:Double>
+    <sys:Double x:Key="FsSm">11</sys:Double>
+    <sys:Double x:Key="FsMd">13</sys:Double>
+    <sys:Double x:Key="FsLg">16</sys:Double>
+    <sys:Double x:Key="FsXl">22</sys:Double>
+    <sys:Double x:Key="FsXxl">32</sys:Double>
+    <sys:Double x:Key="FsHero">48</sys:Double>
+
+    <!-- ═══ TEXT STYLES ══════════════════════════════════════════════ -->
+
+    <!-- DISPLAY HEADERS -->
+    <Style x:Key="PhantomDisplayLg" TargetType="TextBlock">
+        <Setter Property="FontFamily"   Value="{StaticResource DisplayFont}"/>
+        <Setter Property="FontSize"     Value="{StaticResource FsHero}"/>
+        <Setter Property="FontWeight"   Value="Bold"/>
+        <Setter Property="Foreground"   Value="{StaticResource TextHiBrush}"/>
+        <Setter Property="LineHeight"   Value="48"/>
+        <Setter Property="LineStackingStrategy" Value="BlockLineHeight"/>
+    </Style>
+
+    <Style x:Key="PhantomDisplayMd" TargetType="TextBlock">
+        <Setter Property="FontFamily"   Value="{StaticResource DisplayFont}"/>
+        <Setter Property="FontSize"     Value="{StaticResource FsXxl}"/>
+        <Setter Property="FontWeight"   Value="Bold"/>
+        <Setter Property="Foreground"   Value="{StaticResource TextHiBrush}"/>
+    </Style>
+
+    <Style x:Key="PhantomDisplaySm" TargetType="TextBlock">
+        <Setter Property="FontFamily"   Value="{StaticResource DisplayFont}"/>
+        <Setter Property="FontSize"     Value="{StaticResource FsXl}"/>
+        <Setter Property="FontWeight"   Value="SemiBold"/>
+        <Setter Property="Foreground"   Value="{StaticResource TextHiBrush}"/>
+    </Style>
+
+    <!-- LABELS / SECTION TITLES -->
+    <Style x:Key="PhantomLabel" TargetType="TextBlock">
+        <Setter Property="FontFamily"   Value="{StaticResource UiFont}"/>
+        <Setter Property="FontSize"     Value="{StaticResource FsXs}"/>
+        <Setter Property="FontWeight"   Value="Bold"/>
+        <Setter Property="Foreground"   Value="{StaticResource TextDimBrush}"/>
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
+    </Style>
+
+    <Style x:Key="PhantomLabelHi" TargetType="TextBlock" BasedOn="{StaticResource PhantomLabel}">
+        <Setter Property="Foreground"   Value="{StaticResource ElectricBrush}"/>
+    </Style>
+
+    <!-- BODY -->
+    <Style x:Key="PhantomBody" TargetType="TextBlock">
+        <Setter Property="FontFamily"   Value="{StaticResource UiFont}"/>
+        <Setter Property="FontSize"     Value="{StaticResource FsSm}"/>
+        <Setter Property="Foreground"   Value="{StaticResource TextBrush}"/>
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
+    </Style>
+
+    <!-- MONO TELEMETRY -->
+    <Style x:Key="PhantomMono" TargetType="TextBlock">
+        <Setter Property="FontFamily"   Value="{StaticResource MonoFont}"/>
+        <Setter Property="FontSize"     Value="{StaticResource FsSm}"/>
+        <Setter Property="Foreground"   Value="{StaticResource ElectricBrush}"/>
+    </Style>
+
+    <Style x:Key="PhantomMonoLg" TargetType="TextBlock">
+        <Setter Property="FontFamily"   Value="{StaticResource MonoFont}"/>
+        <Setter Property="FontSize"     Value="{StaticResource FsLg}"/>
+        <Setter Property="Foreground"   Value="{StaticResource ElectricBrush}"/>
+        <Setter Property="FontWeight"   Value="SemiBold"/>
+    </Style>
+
+</ResourceDictionary>

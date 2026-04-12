@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="Core_Aim.Views.MonitorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converters="clr-namespace:Core_Aim.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <converters:AppNullToVisibilityConverter x:Key="VisConverter"/>
+    </UserControl.Resources>
+
+    <Grid Background="#0F1115">
+        <Border CornerRadius="12" Background="Black" Margin="0" ClipToBounds="True" BorderBrush="#27272A" BorderThickness="1">
+            <Grid>
+                <Image Source="{Binding CameraFeed}" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                <TextBlock Text="NO SIGNAL / CAMERA STOPPED" 
+                           Foreground="#555" 
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Center"
+                           FontWeight="Bold"
+                           Visibility="{Binding CameraFeed, Converter={StaticResource VisConverter}}"/>
+            </Grid>
+        </Border>
+
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20">
+            <Border Background="#CC000000" CornerRadius="8" Padding="15,10" BorderBrush="#333" BorderThickness="1">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <Ellipse Width="8" Height="8" Fill="#10B981" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="LIVE FEED" Foreground="White" FontWeight="Bold" FontSize="10"/>
+                    </StackPanel>
+
+                    <Grid Width="120">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel>
+                            <TextBlock Text="FPS" Foreground="#A1A1AA" FontSize="9"/>
+                            <TextBlock Text="{Binding Fps, StringFormat=N0}" Foreground="White" FontWeight="SemiBold" FontSize="16"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Text="TARGETS" Foreground="#A1A1AA" FontSize="9"/>
+                            <TextBlock Text="{Binding DetectionCount}" Foreground="#6366F1" FontWeight="SemiBold" FontSize="16"/>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </Grid>
+</UserControl>

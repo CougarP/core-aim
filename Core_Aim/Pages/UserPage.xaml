@@ -1,0 +1,319 @@
+<UserControl x:Class="Core_Aim.Pages.UserPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ctrl="clr-namespace:Core_Aim.Controls"
+             xmlns:loc="clr-namespace:Core_Aim.Services"
+             xmlns:converters="clr-namespace:Core_Aim.Converters">
+    <UserControl.Resources>
+        <converters:AppStatusConverter x:Key="StatusConverter"/>
+        <converters:AppColorConverter x:Key="ColorConverter"/>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </UserControl.Resources>
+
+    <StackPanel Margin="16,14,14,14">
+        <CheckBox IsChecked="{Binding IsUSRPinned, Mode=TwoWay}" HorizontalAlignment="Right" Margin="0,0,0,4" Cursor="Hand" Style="{StaticResource PinCheck}" />
+        <TextBlock Text="{loc:Loc UserPanel}" Style="{StaticResource SectionTitle}" />
+
+        <!-- ACCOUNT INFO -->
+        <Border Style="{StaticResource Card}">
+            <StackPanel>
+                <TextBlock Text="{loc:Loc AccountInfo}" FontSize="11" FontWeight="SemiBold" Foreground="{StaticResource Accent}" Margin="0,0,0,10" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition /><RowDefinition /><RowDefinition /><RowDefinition /><RowDefinition /><RowDefinition /><RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{loc:Loc AccUsername}" Style="{StaticResource PLabel}" Margin="0,0,12,4" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding UserViewModel.Username}" Style="{StaticResource PValue}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="IP" Style="{StaticResource PLabel}" Margin="0,0,12,4" />
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding UserViewModel.UserIp}" Style="{StaticResource PValue}" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="HWID" Style="{StaticResource PLabel}" Margin="0,0,12,4" />
+                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding UserViewModel.UserHwid}" Style="{StaticResource PValue}" FontSize="9" />
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="{loc:Loc AccSubscription}" Style="{StaticResource PLabel}" Margin="0,0,12,4" />
+                    <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding UserViewModel.Subscription}" Style="{StaticResource PValueG}" />
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text="{loc:Loc AccExpiry}" Style="{StaticResource PLabel}" Margin="0,0,12,4" />
+                    <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding UserViewModel.Expiry}" Style="{StaticResource PValueA}" />
+                    <TextBlock Grid.Row="5" Grid.Column="0" Text="{loc:Loc AccCreated}" Style="{StaticResource PLabel}" Margin="0,0,12,4" />
+                    <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding UserViewModel.CreateDate}" Style="{StaticResource PValue}" />
+                    <TextBlock Grid.Row="6" Grid.Column="0" Text="{loc:Loc AccLastLogin}" Style="{StaticResource PLabel}" Margin="0,0,12,4" />
+                    <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding UserViewModel.LastLogin}" Style="{StaticResource PValue}" />
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <!-- DISCORD -->
+        <Border Style="{StaticResource Card}" Margin="0,10,0,0">
+            <StackPanel>
+                <TextBlock Text="DISCORD" FontSize="11" FontWeight="SemiBold" Foreground="#FF5865F2" Margin="0,0,0,8" />
+                <TextBlock Text="Join our community for support, updates, and more."
+                           Foreground="{StaticResource TxtDim}" FontSize="10" Margin="0,0,0,8" TextWrapping="Wrap" />
+                <Button Command="{Binding UserViewModel.OpenDiscordCommand}"
+                        Padding="14,10" FontSize="10.5" FontWeight="Bold" Cursor="Hand"
+                        Background="#1A5865F2" Foreground="#FF5865F2" BorderBrush="#FF5865F2" BorderThickness="1">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Join Discord" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button.Content>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="dcBg" Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1"
+                                    CornerRadius="6" Padding="{TemplateBinding Padding}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="dcBg" Property="Background" Value="#335865F2" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+        </Border>
+
+        <!-- LANGUAGE -->
+        <Border Style="{StaticResource Card}" Margin="0,10,0,0">
+            <StackPanel>
+                <TextBlock Text="{loc:Loc Language}" FontSize="11" FontWeight="SemiBold" Foreground="{StaticResource Accent}" Margin="0,0,0,10" />
+                <ComboBox Width="180" Height="30" HorizontalAlignment="Left"
+                          ItemsSource="{Binding SettingsViewModel.LanguageOptions}"
+                          SelectedIndex="{Binding SettingsViewModel.SelectedLanguageIndex, Mode=TwoWay}" />
+            </StackPanel>
+        </Border>
+
+        <!-- SPLASH STYLE -->
+        <Border Style="{StaticResource Card}" Margin="0,10,0,0">
+            <StackPanel>
+                <TextBlock Text="SPLASH STYLE" FontSize="11" FontWeight="SemiBold" Foreground="{StaticResource Accent}" Margin="0,0,0,10" />
+                <TextBlock Text="Boot animation shown when launching the application." Foreground="{StaticResource TxtDim}" FontSize="10" Margin="0,0,0,8" TextWrapping="Wrap" />
+                <ComboBox Width="220" Height="30" HorizontalAlignment="Left"
+                          ItemsSource="{Binding SettingsViewModel.SplashStyleOptions}"
+                          SelectedIndex="{Binding SettingsViewModel.SelectedSplashStyleIndex, Mode=TwoWay}" />
+            </StackPanel>
+        </Border>
+
+        <!-- CONFIG PROFILES -->
+        <Border Style="{StaticResource Card}" Margin="0,10,0,0">
+            <StackPanel>
+                <TextBlock Text="{loc:Loc ConfigProfiles}" FontSize="11" FontWeight="SemiBold" Foreground="{StaticResource Accent}" Margin="0,0,0,10" />
+
+                <!-- Active profile indicator -->
+                <Border Background="#0D1017" CornerRadius="8" Padding="10,6" Margin="0,0,0,10" BorderBrush="{StaticResource Border1}" BorderThickness="1">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{loc:Loc ActiveProfileLbl}" Style="{StaticResource PLabel}" Margin="0,0,8,0" />
+                        <TextBlock Text="{Binding UserViewModel.ActiveProfile}" Foreground="{StaticResource ColorGreen}" FontWeight="SemiBold" FontSize="11.5" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Border>
+
+                <!-- No profiles message -->
+                <TextBlock Foreground="{StaticResource ColorAmber}" FontSize="10.5" Margin="0,0,0,8" TextWrapping="Wrap">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding UserViewModel.IsEmpty}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                    <Run Text="{loc:Loc NoProfilesMsg}" />
+                </TextBlock>
+
+                <!-- Profile list -->
+                <ListBox Height="100" Background="{StaticResource BgInput}" BorderBrush="{StaticResource Border1}" BorderThickness="1"
+                         Foreground="{StaticResource TxtPri}" FontSize="11" Margin="0,0,0,8"
+                         ItemsSource="{Binding UserViewModel.ProfileNames}"
+                         SelectedItem="{Binding UserViewModel.SelectedProfile, Mode=TwoWay}">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Padding" Value="8,4" />
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="Foreground" Value="{StaticResource TxtPri}" />
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="#1E293B" />
+                                    <Setter Property="Foreground" Value="{StaticResource Accent}" />
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#141820" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                </ListBox>
+
+                <!-- New profile name input -->
+                <Grid Margin="0,0,0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" Text="{Binding UserViewModel.NewProfileName, UpdateSourceTrigger=PropertyChanged}"
+                             Background="{StaticResource BgInput}" Foreground="{StaticResource TxtPri}"
+                             BorderBrush="{StaticResource Border1}" BorderThickness="1"
+                             FontSize="11" Padding="8,5" VerticalContentAlignment="Center">
+                        <TextBox.Style>
+                            <Style TargetType="TextBox">
+                                <Setter Property="Tag" Value="{loc:Loc NewProfilePlaceholder}" />
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <Button Grid.Column="1" Content="{loc:Loc BtnCreate}" Command="{Binding UserViewModel.CreateProfileCommand}"
+                            Background="{StaticResource Accent}" Foreground="#08090C" FontWeight="Bold" FontSize="10"
+                            Padding="12,5" Margin="6,0,0,0" Cursor="Hand" BorderThickness="0">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="btnBg" Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="btnBg" Property="Background" Value="#00FFCC" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+
+                <!-- Action buttons -->
+                <WrapPanel Margin="0,0,0,8">
+                    <Button Content="{loc:Loc BtnLoad}" Command="{Binding UserViewModel.LoadProfileCommand}"
+                            Margin="0,0,4,4" Padding="10,5" FontSize="10" Cursor="Hand"
+                            Background="{StaticResource BgInput}" Foreground="{StaticResource TxtPri}" BorderBrush="{StaticResource Border1}" BorderThickness="1">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="bb" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="6" Padding="{TemplateBinding Padding}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="bb" Property="Background" Value="{StaticResource BgHover}" />
+                                        <Setter Property="Foreground" Value="{StaticResource Accent}" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button Content="{loc:Loc BtnSave}" Command="{Binding UserViewModel.SaveCurrentCommand}"
+                            Margin="0,0,4,4" Padding="10,5" FontSize="10" Cursor="Hand"
+                            Background="{StaticResource BgInput}" Foreground="{StaticResource TxtPri}" BorderBrush="{StaticResource Border1}" BorderThickness="1">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="bb" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="6" Padding="{TemplateBinding Padding}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="bb" Property="Background" Value="{StaticResource BgHover}" />
+                                        <Setter Property="Foreground" Value="{StaticResource Accent}" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button Content="{loc:Loc BtnCopy}" Command="{Binding UserViewModel.CopyProfileCommand}"
+                            Margin="0,0,4,4" Padding="10,5" FontSize="10" Cursor="Hand"
+                            Background="{StaticResource BgInput}" Foreground="{StaticResource TxtPri}" BorderBrush="{StaticResource Border1}" BorderThickness="1">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="bb" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="6" Padding="{TemplateBinding Padding}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="bb" Property="Background" Value="{StaticResource BgHover}" />
+                                        <Setter Property="Foreground" Value="{StaticResource Accent}" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button Content="{loc:Loc BtnPaste}" Command="{Binding UserViewModel.PasteProfileCommand}"
+                            Margin="0,0,4,4" Padding="10,5" FontSize="10" Cursor="Hand"
+                            Background="{StaticResource BgInput}" Foreground="{StaticResource TxtPri}" BorderBrush="{StaticResource Border1}" BorderThickness="1">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="bb" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="6" Padding="{TemplateBinding Padding}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="bb" Property="Background" Value="{StaticResource BgHover}" />
+                                        <Setter Property="Foreground" Value="{StaticResource Accent}" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button Content="{loc:Loc BtnDelete}" Command="{Binding UserViewModel.DeleteProfileCommand}"
+                            Margin="0,0,4,4" Padding="10,5" FontSize="10" Cursor="Hand"
+                            Background="#2D1B1B" Foreground="{StaticResource ColorRed}" BorderBrush="#4B2020" BorderThickness="1">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="bb" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="6" Padding="{TemplateBinding Padding}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="bb" Property="Background" Value="#3D2020" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </WrapPanel>
+
+                <!-- Status -->
+                <TextBlock Text="{Binding UserViewModel.ProfileStatus}" Foreground="{StaticResource TxtDim}" FontSize="10" />
+            </StackPanel>
+        </Border>
+
+        <!-- FUZER MODE -->
+        <Border Style="{StaticResource Card}" Margin="0,10,0,0">
+            <StackPanel>
+                <TextBlock Text="{loc:Loc FuzerMode}" FontFamily="{StaticResource MonoFont}" FontSize="9" FontWeight="Bold" Foreground="#FFB400FF" Margin="0,0,0,10" />
+                <Button Command="{Binding ToggleFuzerCommand}"
+                        Padding="14,10" FontFamily="{StaticResource MonoFont}" FontSize="10" FontWeight="Bold" Cursor="Hand"
+                        Background="#FF03070F" Foreground="#FFB400FF" BorderBrush="#FFB400FF" BorderThickness="1">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#x25C6; " FontSize="12" VerticalAlignment="Center" />
+                            <TextBlock Text="{loc:Loc FuzerMode}" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button.Content>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <Border x:Name="fzbGlow" BorderBrush="#FFB400FF" BorderThickness="1" CornerRadius="2" Opacity="0">
+                                    <Border.Effect>
+                                        <BlurEffect Radius="10" />
+                                    </Border.Effect>
+                                </Border>
+                                <Border x:Name="fzb" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="2" Padding="{TemplateBinding Padding}">
+                                    <Grid>
+                                        <Rectangle Height="1" VerticalAlignment="Top" Fill="#FFB400FF" Opacity="0.5" />
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="fzb" Property="Background" Value="#1AB400FF" />
+                                    <Setter TargetName="fzbGlow" Property="Opacity" Value="0.7" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+
+</UserControl>

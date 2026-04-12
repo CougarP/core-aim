@@ -1,0 +1,99 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<!-- App WPF -->
+		<OutputType>WinExe</OutputType>
+		<UseWPF>true</UseWPF>
+
+		<!-- Alvo .NET com APIs de Windows -->
+		<TargetFramework>net9.0-windows10.0.22621.0</TargetFramework>
+		<UseWindowsForms>true</UseWindowsForms>
+
+		<!-- Garantir execução 64-bit -->
+		<Platforms>x64</Platforms>
+		<PlatformTarget>x64</PlatformTarget>
+		<Prefer32Bit>false</Prefer32Bit>
+		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+
+		<!-- Copiar DLLs nativas dos pacotes NuGet (ex.: DirectML.dll, OpenCV .dll) -->
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+
+		<!-- Qualidade de build -->
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+		<ApplicationIcon>app_icon.ico</ApplicationIcon>
+		<!-- OnnxRuntime base e DirectML têm o mesmo onnxruntime.dll — idênticos, suprimir erro de publish -->
+		<ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+		<!-- Elimina pastas de idioma (cs-CZ, de, es, fr, etc.) do output -->
+		<SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+	</PropertyGroup>
+
+	<!-- Otimizações para Release x64 -->
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+		<Optimize>true</Optimize>
+	</PropertyGroup>
+	<ItemGroup>
+	  <None Remove="app_icon.ico" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Content Include="app_icon.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Models\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<!-- Mantenha MESMA versão entre Runtime e DirectML -->
+		<PackageReference Include="Extended.Wpf.Toolkit" Version="5.0.0" />
+		<!-- OnnxRuntime base: exclui DLLs nativas para evitar conflito com DirectML no publish -->
+		<PackageReference Include="Microsoft.ML.OnnxRuntime" Version="1.18.0">
+			<ExcludeAssets>native</ExcludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.ML.OnnxRuntime.DirectML" Version="1.18.0" />
+		<PackageReference Include="OpenCvSharp4.runtime.win" Version="4.11.0.20250507" />
+
+		<!-- OpenCV (Windows com DLLs nativas) -->
+		<PackageReference Include="OpenCvSharp4.Windows" Version="4.11.0.20250507" />
+		<PackageReference Include="SharpDX" Version="4.2.0" />
+		<PackageReference Include="SharpDX.Direct3D11" Version="4.2.0" />
+		<PackageReference Include="SharpDX.DXGI" Version="4.2.0" />
+
+		<!-- Se ainda usa Bitmap/System.Drawing em algum ponto -->
+		<PackageReference Include="System.Drawing.Common" Version="9.0.10" />
+		<PackageReference Include="System.Management" Version="10.0.0" />
+
+		<!-- Opcional (não é obrigatório se você já escreve direto no WriteableBitmap) -->
+		<PackageReference Include="WriteableBitmapEx" Version="1.6.9" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\KMBox.NET\KMBox.NET.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="app_icon.ico" />
+	</ItemGroup>
+
+	<!-- Arquivos extras (auth.bin, Models, tt2_bridge.dll, etc.)
+	     Ficam em _assets\ na raiz da solução — NUNCA são apagados pelo build.
+	     São copiados para o output automaticamente. -->
+	<ItemGroup>
+		<Content Include="..\\_assets\\**\\*">
+			<Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<!-- GPC: fonte (.gpc) para export + bytecode compilado (.gbc) para auto-upload -->
+	<ItemGroup>
+		<EmbeddedResource Include="..\GPC\core_aim_pro.gpc">
+			<LogicalName>core_aim_pro.gpc</LogicalName>
+		</EmbeddedResource>
+		<EmbeddedResource Include="..\GPC\core_aim_pro.gbc">
+			<LogicalName>core_aim_pro.gbc</LogicalName>
+		</EmbeddedResource>
+	</ItemGroup>
+
+</Project>

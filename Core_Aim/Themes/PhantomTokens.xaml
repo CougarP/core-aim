@@ -1,0 +1,153 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         PHANTOM DESIGN TOKENS — exact spec
+         Source: coreaim phantom docs.pdf §10
+         All UI must reference these as StaticResource.
+         ═══════════════════════════════════════════════════════════════ -->
+
+    <!-- ═══ BASE / BACKGROUNDS ═══════════════════════════════════════ -->
+    <Color x:Key="CVoid">#FF010308</Color>
+    <Color x:Key="CAbyss">#FF03070F</Color>
+    <Color x:Key="CPanel">#FF060D1A</Color>
+    <Color x:Key="CLine">#FF162030</Color>
+    <Color x:Key="CLine2">#FF1E2E42</Color>
+    <!-- legacy aliases kept for back-compat with existing styles -->
+    <Color x:Key="CPanelHi">#FF0E1726</Color>
+    <Color x:Key="CSurface">#FF111B2E</Color>
+    <Color x:Key="CSurfaceHi">#FF182338</Color>
+
+    <SolidColorBrush x:Key="VoidBrush"      Color="{StaticResource CVoid}"/>
+    <SolidColorBrush x:Key="AbyssBrush"     Color="{StaticResource CAbyss}"/>
+    <SolidColorBrush x:Key="PanelBrush"     Color="{StaticResource CPanel}"/>
+    <SolidColorBrush x:Key="LineBrush"      Color="{StaticResource CLine}"/>
+    <SolidColorBrush x:Key="Line2Brush"     Color="{StaticResource CLine2}"/>
+    <SolidColorBrush x:Key="PanelHiBrush"   Color="{StaticResource CPanelHi}"/>
+    <SolidColorBrush x:Key="SurfaceBrush"   Color="{StaticResource CSurface}"/>
+    <SolidColorBrush x:Key="SurfaceHiBrush" Color="{StaticResource CSurfaceHi}"/>
+
+    <!-- ═══ ENERGY / ACCENTS ═════════════════════════════════════════ -->
+    <Color x:Key="CElectric">#FF00F0FF</Color>   <!-- primary cyan -->
+    <Color x:Key="CElectricDim">#FF008C99</Color>
+    <Color x:Key="CPlasma">#FFB400FF</Color>     <!-- magenta -->
+    <Color x:Key="CPlasmaDim">#FF6600A0</Color>
+    <Color x:Key="CInferno">#FFFF3000</Color>    <!-- danger -->
+    <Color x:Key="CSolar">#FFFFE000</Color>      <!-- warning -->
+    <Color x:Key="CPulse">#FF00FF9D</Color>      <!-- ok / live -->
+    <Color x:Key="CIce">#FF80E8FF</Color>        <!-- soft cyan highlight -->
+
+    <SolidColorBrush x:Key="ElectricBrush"    Color="{StaticResource CElectric}"/>
+    <SolidColorBrush x:Key="ElectricDimBrush" Color="{StaticResource CElectricDim}"/>
+    <SolidColorBrush x:Key="PlasmaBrush"      Color="{StaticResource CPlasma}"/>
+    <SolidColorBrush x:Key="PlasmaDimBrush"   Color="{StaticResource CPlasmaDim}"/>
+    <SolidColorBrush x:Key="InfernoBrush"     Color="{StaticResource CInferno}"/>
+    <SolidColorBrush x:Key="SolarBrush"       Color="{StaticResource CSolar}"/>
+    <SolidColorBrush x:Key="PulseBrush"       Color="{StaticResource CPulse}"/>
+    <SolidColorBrush x:Key="IceBrush"         Color="{StaticResource CIce}"/>
+
+    <!-- ═══ TEXT ═════════════════════════════════════════════════════ -->
+    <!-- Spec text scale (docs §10): white #D8EEF8, text #8AAABB,
+         muted #304050, sub #506070 -->
+    <Color x:Key="CWhite">#FFD8EEF8</Color>
+    <Color x:Key="CText">#FF8AAABB</Color>
+    <Color x:Key="CTextSub">#FF506070</Color>
+    <Color x:Key="CTextMuted">#FF304050</Color>
+    <!-- legacy aliases — apontam para valores spec §10 -->
+    <Color x:Key="CTextHi">#FFD8EEF8</Color>
+    <Color x:Key="CTextDim">#FF506070</Color>
+    <Color x:Key="CTextGhost">#FF3E4C62</Color>
+
+    <SolidColorBrush x:Key="WhiteBrush"     Color="{StaticResource CWhite}"/>
+    <SolidColorBrush x:Key="TextBrush"      Color="{StaticResource CText}"/>
+    <SolidColorBrush x:Key="TextSubBrush"   Color="{StaticResource CTextSub}"/>
+    <SolidColorBrush x:Key="MutedBrush"     Color="{StaticResource CTextMuted}"/>
+    <SolidColorBrush x:Key="TextHiBrush"    Color="{StaticResource CTextHi}"/>
+    <SolidColorBrush x:Key="TextDimBrush"   Color="{StaticResource CTextDim}"/>
+    <SolidColorBrush x:Key="TextGhostBrush" Color="{StaticResource CTextGhost}"/>
+
+    <!-- ═══ STROKES / GRID LINES ════════════════════════════════════ -->
+    <Color x:Key="CStrokeFaint">#1400F0FF</Color>     <!-- 8% electric -->
+    <Color x:Key="CStrokeSoft">#3300F0FF</Color>      <!-- 20% electric -->
+    <Color x:Key="CStrokeHard">#8000F0FF</Color>      <!-- 50% electric -->
+    <Color x:Key="CStrokePlasma">#33B400FF</Color>
+
+    <SolidColorBrush x:Key="StrokeFaintBrush"  Color="{StaticResource CStrokeFaint}"/>
+    <SolidColorBrush x:Key="StrokeSoftBrush"   Color="{StaticResource CStrokeSoft}"/>
+    <SolidColorBrush x:Key="StrokeHardBrush"   Color="{StaticResource CStrokeHard}"/>
+    <SolidColorBrush x:Key="StrokePlasmaBrush" Color="{StaticResource CStrokePlasma}"/>
+
+    <!-- ═══ GLOW GRADIENTS ══════════════════════════════════════════ -->
+    <RadialGradientBrush x:Key="ElectricOrbBrush" GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+        <GradientStop Color="#CC00F0FF" Offset="0"/>
+        <GradientStop Color="#6600F0FF" Offset="0.35"/>
+        <GradientStop Color="#0000F0FF" Offset="1"/>
+    </RadialGradientBrush>
+
+    <RadialGradientBrush x:Key="PlasmaOrbBrush" GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+        <GradientStop Color="#CCB400FF" Offset="0"/>
+        <GradientStop Color="#66B400FF" Offset="0.35"/>
+        <GradientStop Color="#00B400FF" Offset="1"/>
+    </RadialGradientBrush>
+
+    <RadialGradientBrush x:Key="InfernoOrbBrush" GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+        <GradientStop Color="#CCFF3000" Offset="0"/>
+        <GradientStop Color="#66FF3000" Offset="0.35"/>
+        <GradientStop Color="#00FF3000" Offset="1"/>
+    </RadialGradientBrush>
+
+    <!-- Vignette: dark edges to focus center -->
+    <RadialGradientBrush x:Key="VignetteBrush" GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.85" RadiusY="0.85">
+        <GradientStop Color="#00000000" Offset="0.55"/>
+        <GradientStop Color="#80000000" Offset="0.85"/>
+        <GradientStop Color="#FF000000" Offset="1.0"/>
+    </RadialGradientBrush>
+
+    <!-- Panel base fill: subtle vertical gradient -->
+    <LinearGradientBrush x:Key="PanelFillBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource CPanelHi}" Offset="0"/>
+        <GradientStop Color="{StaticResource CPanel}"   Offset="1"/>
+    </LinearGradientBrush>
+
+    <!-- Panel border: cyan stroke gradient -->
+    <LinearGradientBrush x:Key="PanelStrokeBrush" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#5500F0FF" Offset="0"/>
+        <GradientStop Color="#1500F0FF" Offset="0.5"/>
+        <GradientStop Color="#55B400FF" Offset="1"/>
+    </LinearGradientBrush>
+
+    <!-- Title bar accent stroke (electric line) -->
+    <LinearGradientBrush x:Key="TitleAccentBrush" StartPoint="0,0" EndPoint="1,0">
+        <GradientStop Color="#0000F0FF" Offset="0"/>
+        <GradientStop Color="#FF00F0FF" Offset="0.5"/>
+        <GradientStop Color="#0000F0FF" Offset="1"/>
+    </LinearGradientBrush>
+
+    <!-- ═══ SLIDER GRADIENTS (spec §4 / §10) ═════════════════════════ -->
+    <LinearGradientBrush x:Key="SliderFillElectric" StartPoint="0,0" EndPoint="1,0">
+        <GradientStop Color="#FF00F0FF" Offset="0"/>
+        <GradientStop Color="#FFB400FF" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="SliderFillSolar" StartPoint="0,0" EndPoint="1,0">
+        <GradientStop Color="#FFFFE000" Offset="0"/>
+        <GradientStop Color="#FFFF3000" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="SliderFillPulse" StartPoint="0,0" EndPoint="1,0">
+        <GradientStop Color="#FF00FF9D" Offset="0"/>
+        <GradientStop Color="#FF00F0FF" Offset="1"/>
+    </LinearGradientBrush>
+
+    <!-- ═══ METRICS ══════════════════════════════════════════════════ -->
+    <CornerRadius x:Key="CornerSm">3</CornerRadius>
+    <CornerRadius x:Key="RadiusSm">2</CornerRadius>
+    <CornerRadius x:Key="RadiusMd">4</CornerRadius>
+    <CornerRadius x:Key="RadiusLg">8</CornerRadius>
+    <Thickness    x:Key="PadSm">8</Thickness>
+    <Thickness    x:Key="PadMd">13</Thickness>
+    <Thickness    x:Key="StrokeThin">1</Thickness>
+    <Thickness    x:Key="StrokeMed">1.5</Thickness>
+    <sys:Double   x:Key="SidebarWidth">64</sys:Double>
+    <sys:Double   x:Key="TitlebarHeight">36</sys:Double>
+
+</ResourceDictionary>

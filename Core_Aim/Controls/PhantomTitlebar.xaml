@@ -1,0 +1,197 @@
+<UserControl x:Class="Core_Aim.Controls.PhantomTitlebar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Height="36">
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         PHANTOM TITLEBAR — spec §01 + balloons mockup
+         36px high • logo CORE AIM PRO • status chips • START / STOP • window buttons
+         Drag area: full bar except buttons.
+         ═══════════════════════════════════════════════════════════════ -->
+
+    <UserControl.Resources>
+        <!-- Status chip -->
+        <Style x:Key="ChipStyle" TargetType="Border">
+            <Setter Property="BorderBrush" Value="#FF1E2E42"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="6,2"/>
+            <Setter Property="Margin" Value="3,0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Background" Value="#33000000"/>
+        </Style>
+
+        <Style x:Key="ChipText" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource MonoFont}"/>
+            <Setter Property="FontSize" Value="9"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#FF8AAABB"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Window button (—  ✕) -->
+        <Style x:Key="WinBtn" TargetType="Button">
+            <Setter Property="Width" Value="36"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#FF506070"/>
+            <Setter Property="FontFamily" Value="{StaticResource MonoFont}"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              TextBlock.Foreground="{TemplateBinding Foreground}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#1A00F0FF"/>
+                                <Setter Property="Foreground" Value="#FF00F0FF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CloseBtn" TargetType="Button" BasedOn="{StaticResource WinBtn}">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="#FFFF3000"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Compact START / STOP -->
+        <Style x:Key="StartBtn" TargetType="Button">
+            <Setter Property="Foreground" Value="#FF00FF9D"/>
+            <Setter Property="Background" Value="#1200FF9D"/>
+            <Setter Property="BorderBrush" Value="#4200FF9D"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontFamily" Value="{StaticResource MonoFont}"/>
+            <Setter Property="FontSize" Value="9"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="10,4"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="3,0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              TextBlock.Foreground="{TemplateBinding Foreground}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#2200FF9D"/>
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="#FF00FF9D"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="StopBtn" TargetType="Button" BasedOn="{StaticResource StartBtn}">
+            <Setter Property="Foreground" Value="#FFFF3000"/>
+            <Setter Property="Background" Value="#12FF3000"/>
+            <Setter Property="BorderBrush" Value="#42FF3000"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Border Background="#FF03070F"
+            BorderBrush="#FF162030"
+            BorderThickness="0,0,0,1"
+            MouseLeftButtonDown="DragArea_MouseLeftButtonDown">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/> <!-- logo -->
+                <ColumnDefinition Width="Auto"/> <!-- status chips -->
+                <ColumnDefinition Width="*"/>    <!-- spacer -->
+                <ColumnDefinition Width="Auto"/> <!-- start/stop -->
+                <ColumnDefinition Width="Auto"/> <!-- win buttons -->
+            </Grid.ColumnDefinitions>
+
+            <!-- LOGO -->
+            <StackPanel Grid.Column="0" Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        Margin="14,0,0,0">
+                <TextBlock Text="◆"
+                           FontFamily="{StaticResource MonoFont}"
+                           FontSize="13"
+                           FontWeight="Bold"
+                           Foreground="#FF00F0FF"
+                           VerticalAlignment="Center"
+                           Margin="0,0,6,0">
+                    <TextBlock.Effect>
+                        <DropShadowEffect Color="#FF00F0FF" ShadowDepth="0" BlurRadius="8" Opacity="0.7"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+                <TextBlock Text="CORE AIM"
+                           FontFamily="{StaticResource MonoFont}"
+                           FontSize="11"
+                           FontWeight="Bold"
+                           Foreground="#FFD8EEF8"
+                           VerticalAlignment="Center"/>
+                <TextBlock Text="PRO"
+                           FontFamily="{StaticResource MonoFont}"
+                           FontSize="11"
+                           FontWeight="Bold"
+                           Foreground="#FF00F0FF"
+                           VerticalAlignment="Center"
+                           Margin="4,0,0,0"/>
+                <TextBlock Text="v2"
+                           FontFamily="{StaticResource MonoFont}"
+                           FontSize="9"
+                           Foreground="#FF506070"
+                           VerticalAlignment="Center"
+                           Margin="6,2,0,0"/>
+            </StackPanel>
+
+            <!-- STATUS CHIPS -->
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="18,0,0,0">
+                <Border Style="{StaticResource ChipStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Width="6" Height="6" Fill="#FF00FF9D" Margin="0,0,5,0" VerticalAlignment="Center">
+                            <Ellipse.Effect>
+                                <DropShadowEffect Color="#FF00FF9D" ShadowDepth="0" BlurRadius="6" Opacity="0.9"/>
+                            </Ellipse.Effect>
+                        </Ellipse>
+                        <TextBlock x:Name="LiveText" Text="LIVE" Style="{StaticResource ChipText}" Foreground="#FF00FF9D"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource ChipStyle}">
+                    <TextBlock x:Name="CapText" Text="CAP 0 TGT" Style="{StaticResource ChipText}"/>
+                </Border>
+                <Border Style="{StaticResource ChipStyle}">
+                    <TextBlock x:Name="FpsText" Text="FPS 0" Style="{StaticResource ChipText}"/>
+                </Border>
+                <Border Style="{StaticResource ChipStyle}">
+                    <TextBlock x:Name="LatencyText" Text="0.0ms" Style="{StaticResource ChipText}"/>
+                </Border>
+            </StackPanel>
+
+            <!-- START / STOP -->
+            <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center">
+                <Button x:Name="StartButton" Content="▶ START" Style="{StaticResource StartBtn}" Click="Start_Click"/>
+                <Button x:Name="StopButton"  Content="■ STOP"  Style="{StaticResource StopBtn}"  Click="Stop_Click"/>
+            </StackPanel>
+
+            <!-- WINDOW BUTTONS -->
+            <StackPanel Grid.Column="4" Orientation="Horizontal">
+                <Button Content="—" Style="{StaticResource WinBtn}" Click="Min_Click"/>
+                <Button Content="◻" Style="{StaticResource WinBtn}" Click="Max_Click"/>
+                <Button Content="✕" Style="{StaticResource CloseBtn}" Click="Close_Click"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

@@ -1,0 +1,247 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         PHANTOM COMPONENT STYLES
+         Depends on PhantomTokens + PhantomTypography being merged first.
+         ═══════════════════════════════════════════════════════════════ -->
+
+    <!-- ═══ PANEL ═══════════════════════════════════════════════════ -->
+    <Style x:Key="PhantomPanel" TargetType="Border">
+        <Setter Property="Background"      Value="{StaticResource PanelFillBrush}"/>
+        <Setter Property="BorderBrush"     Value="{StaticResource PanelStrokeBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius"    Value="2"/>
+        <Setter Property="Padding"         Value="16"/>
+    </Style>
+
+    <Style x:Key="PhantomPanelFlat" TargetType="Border">
+        <Setter Property="Background"      Value="{StaticResource PanelBrush}"/>
+        <Setter Property="BorderBrush"     Value="{StaticResource StrokeSoftBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius"    Value="2"/>
+    </Style>
+
+    <!-- ═══ BUTTON: PRIMARY (electric) ═════════════════════════════ -->
+    <Style x:Key="PhantomButton" TargetType="Button">
+        <Setter Property="Background"      Value="{StaticResource SurfaceBrush}"/>
+        <Setter Property="Foreground"      Value="{StaticResource ElectricBrush}"/>
+        <Setter Property="BorderBrush"     Value="{StaticResource StrokeHardBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="FontFamily"      Value="{StaticResource UiFont}"/>
+        <Setter Property="FontWeight"      Value="Bold"/>
+        <Setter Property="FontSize"        Value="11"/>
+        <Setter Property="Padding"         Value="18,10"/>
+        <Setter Property="Cursor"          Value="Hand"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Border x:Name="bd"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="2">
+                            <Grid>
+                                <!-- Top inner electric line -->
+                                <Rectangle Height="1" VerticalAlignment="Top"
+                                           Fill="{StaticResource ElectricBrush}" Opacity="0.4"/>
+                                <ContentPresenter HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"
+                                                  Margin="{TemplateBinding Padding}"
+                                                  TextElement.Foreground="{TemplateBinding Foreground}"/>
+                            </Grid>
+                        </Border>
+                        <!-- Glow on hover -->
+                        <Border x:Name="glow" IsHitTestVisible="False"
+                                BorderBrush="{StaticResource ElectricBrush}"
+                                BorderThickness="1" CornerRadius="2"
+                                Opacity="0">
+                            <Border.Effect>
+                                <BlurEffect Radius="12"/>
+                            </Border.Effect>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="bd"   Property="Background"  Value="{StaticResource SurfaceHiBrush}"/>
+                            <Setter TargetName="bd"   Property="BorderBrush" Value="{StaticResource ElectricBrush}"/>
+                            <Setter TargetName="glow" Property="Opacity"     Value="0.7"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="bd" Property="Background" Value="{StaticResource ElectricDimBrush}"/>
+                            <Setter Property="Foreground" Value="{StaticResource VoidBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.35"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ═══ BUTTON: GHOST (no fill) ════════════════════════════════ -->
+    <Style x:Key="PhantomButtonGhost" TargetType="Button" BasedOn="{StaticResource PhantomButton}">
+        <Setter Property="Background"  Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="{StaticResource StrokeSoftBrush}"/>
+        <Setter Property="Foreground"  Value="{StaticResource TextDimBrush}"/>
+    </Style>
+
+    <!-- ═══ BUTTON: WINDOW CHROME (close / min) ════════════════════ -->
+    <Style x:Key="PhantomChromeButton" TargetType="Button">
+        <Setter Property="Background"      Value="Transparent"/>
+        <Setter Property="Foreground"      Value="{StaticResource TextDimBrush}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FontFamily"      Value="{StaticResource MonoFont}"/>
+        <Setter Property="FontSize"        Value="11"/>
+        <Setter Property="Width"           Value="42"/>
+        <Setter Property="Height"          Value="32"/>
+        <Setter Property="Cursor"          Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="bd" Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
+                                          TextElement.Foreground="{TemplateBinding Foreground}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="bd" Property="Background" Value="#1A00F0FF"/>
+                            <Setter Property="Foreground" Value="{StaticResource ElectricBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="PhantomChromeClose" TargetType="Button" BasedOn="{StaticResource PhantomChromeButton}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#33FF3000"/>
+                <Setter Property="Foreground" Value="{StaticResource InfernoBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- ═══ TEXTBOX ═════════════════════════════════════════════════ -->
+    <Style x:Key="PhantomTextBox" TargetType="TextBox">
+        <Setter Property="Background"      Value="{StaticResource AbyssBrush}"/>
+        <Setter Property="Foreground"      Value="{StaticResource TextHiBrush}"/>
+        <Setter Property="CaretBrush"      Value="{StaticResource ElectricBrush}"/>
+        <Setter Property="SelectionBrush"  Value="{StaticResource ElectricBrush}"/>
+        <Setter Property="BorderBrush"     Value="{StaticResource StrokeSoftBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="FontFamily"      Value="{StaticResource MonoFont}"/>
+        <Setter Property="FontSize"        Value="12"/>
+        <Setter Property="Padding"         Value="12,9"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Grid>
+                        <Border x:Name="bd"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="2">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <!-- Bottom electric underline -->
+                        <Rectangle x:Name="under" Height="1" VerticalAlignment="Bottom"
+                                   Fill="{StaticResource ElectricBrush}" Opacity="0.25"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="bd"    Property="BorderBrush" Value="{StaticResource ElectricBrush}"/>
+                            <Setter TargetName="under" Property="Opacity"     Value="1"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ═══ PASSWORDBOX ═════════════════════════════════════════════ -->
+    <Style x:Key="PhantomPasswordBox" TargetType="PasswordBox">
+        <Setter Property="Background"      Value="{StaticResource AbyssBrush}"/>
+        <Setter Property="Foreground"      Value="{StaticResource TextHiBrush}"/>
+        <Setter Property="CaretBrush"      Value="{StaticResource ElectricBrush}"/>
+        <Setter Property="SelectionBrush"  Value="{StaticResource ElectricBrush}"/>
+        <Setter Property="BorderBrush"     Value="{StaticResource StrokeSoftBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="FontFamily"      Value="{StaticResource MonoFont}"/>
+        <Setter Property="FontSize"        Value="12"/>
+        <Setter Property="Padding"         Value="12,9"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="PasswordBox">
+                    <Grid>
+                        <Border x:Name="bd"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="2">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <Rectangle x:Name="under" Height="1" VerticalAlignment="Bottom"
+                                   Fill="{StaticResource ElectricBrush}" Opacity="0.25"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="bd"    Property="BorderBrush" Value="{StaticResource ElectricBrush}"/>
+                            <Setter TargetName="under" Property="Opacity"     Value="1"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ═══ CHECKBOX ════════════════════════════════════════════════ -->
+    <Style x:Key="PhantomCheckBox" TargetType="CheckBox">
+        <Setter Property="Foreground" Value="{StaticResource TextDimBrush}"/>
+        <Setter Property="FontFamily" Value="{StaticResource UiFont}"/>
+        <Setter Property="FontSize"   Value="11"/>
+        <Setter Property="Cursor"     Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <StackPanel Orientation="Horizontal">
+                        <Grid Width="14" Height="14" VerticalAlignment="Center">
+                            <Border x:Name="box"
+                                    Background="{StaticResource AbyssBrush}"
+                                    BorderBrush="{StaticResource StrokeHardBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="1"/>
+                            <Path x:Name="check"
+                                  Data="M 2,7 L 6,11 L 12,3"
+                                  Stroke="{StaticResource ElectricBrush}"
+                                  StrokeThickness="2"
+                                  StrokeStartLineCap="Round"
+                                  StrokeEndLineCap="Round"
+                                  Visibility="Collapsed"/>
+                        </Grid>
+                        <ContentPresenter Margin="8,0,0,0" VerticalAlignment="Center"
+                                          TextElement.Foreground="{TemplateBinding Foreground}"/>
+                    </StackPanel>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="check" Property="Visibility"  Value="Visible"/>
+                            <Setter TargetName="box"   Property="BorderBrush" Value="{StaticResource ElectricBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="box" Property="BorderBrush" Value="{StaticResource ElectricBrush}"/>
+                            <Setter Property="Foreground" Value="{StaticResource TextHiBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

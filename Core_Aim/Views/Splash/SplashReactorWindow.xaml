@@ -1,0 +1,176 @@
+<Window x:Class="Core_Aim.Views.Splash.SplashReactorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Core Aim" Width="640" Height="480"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="NoResize"
+        UseLayoutRounding="True"
+        TextOptions.TextFormattingMode="Display">
+
+    <Border IsHitTestVisible="False" CornerRadius="0">
+        <Grid x:Name="Root" ClipToBounds="True">
+
+            <!-- L1: void background -->
+            <Rectangle Fill="{StaticResource VoidBrush}"/>
+
+            <!-- L2: hex grid (radial reveal synced to ring expansion) -->
+            <Rectangle x:Name="HexLayer"
+                       Fill="{StaticResource HexGridBrushDense}"
+                       Opacity="0">
+                <Rectangle.OpacityMask>
+                    <RadialGradientBrush x:Name="HexMask"
+                                         Center="0.5,0.5" GradientOrigin="0.5,0.5"
+                                         RadiusX="0.05" RadiusY="0.05">
+                        <GradientStop Color="#FFFFFFFF" Offset="0.0"/>
+                        <GradientStop Color="#FFFFFFFF" Offset="0.85"/>
+                        <GradientStop Color="#00FFFFFF" Offset="1.0"/>
+                    </RadialGradientBrush>
+                </Rectangle.OpacityMask>
+            </Rectangle>
+
+            <!-- L3: vignette -->
+            <Rectangle Fill="{StaticResource VignetteBrush}"/>
+
+            <!-- L4: orbital orbs (drift in from off-screen) -->
+            <Ellipse x:Name="OrbA"
+                     Width="220" Height="220"
+                     HorizontalAlignment="Center" VerticalAlignment="Center"
+                     Fill="{StaticResource ElectricOrbBrush}"
+                     Opacity="0"
+                     IsHitTestVisible="False">
+                <Ellipse.RenderTransform>
+                    <TranslateTransform x:Name="OrbAOffset" X="-360" Y="-180"/>
+                </Ellipse.RenderTransform>
+                <Ellipse.Effect>
+                    <BlurEffect Radius="40"/>
+                </Ellipse.Effect>
+            </Ellipse>
+            <Ellipse x:Name="OrbB"
+                     Width="200" Height="200"
+                     HorizontalAlignment="Center" VerticalAlignment="Center"
+                     Fill="{StaticResource PlasmaOrbBrush}"
+                     Opacity="0"
+                     IsHitTestVisible="False">
+                <Ellipse.RenderTransform>
+                    <TranslateTransform x:Name="OrbBOffset" X="360" Y="180"/>
+                </Ellipse.RenderTransform>
+                <Ellipse.Effect>
+                    <BlurEffect Radius="40"/>
+                </Ellipse.Effect>
+            </Ellipse>
+
+            <!-- L5: core dot -->
+            <Ellipse x:Name="CoreDot"
+                     Width="6" Height="6"
+                     Fill="#FFFFFFFF"
+                     HorizontalAlignment="Center" VerticalAlignment="Center"
+                     Opacity="0">
+                <Ellipse.Effect>
+                    <DropShadowEffect Color="#FF00F0FF" BlurRadius="22" ShadowDepth="0"/>
+                </Ellipse.Effect>
+            </Ellipse>
+
+            <!-- L6: rotating rings (6 of them, alternating colors) -->
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center"
+                  Width="320" Height="320"
+                  RenderTransformOrigin="0.5,0.5">
+                <Ellipse x:Name="Ring1" Stroke="#FF00F0FF" StrokeThickness="1" Opacity="0"
+                         StrokeDashArray="2 6" RenderTransformOrigin="0.5,0.5">
+                    <Ellipse.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform x:Name="Ring1Scale" ScaleX="0.05" ScaleY="0.05"/>
+                            <RotateTransform x:Name="Ring1Rot" Angle="0"/>
+                        </TransformGroup>
+                    </Ellipse.RenderTransform>
+                </Ellipse>
+                <Ellipse x:Name="Ring2" Stroke="#FFB400FF" StrokeThickness="1" Opacity="0"
+                         StrokeDashArray="6 4" RenderTransformOrigin="0.5,0.5"
+                         Width="280" Height="280" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Ellipse.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform x:Name="Ring2Scale" ScaleX="0.05" ScaleY="0.05"/>
+                            <RotateTransform x:Name="Ring2Rot" Angle="0"/>
+                        </TransformGroup>
+                    </Ellipse.RenderTransform>
+                </Ellipse>
+                <Ellipse x:Name="Ring3" Stroke="#FF80E8FF" StrokeThickness="1.2" Opacity="0"
+                         StrokeDashArray="1 9" RenderTransformOrigin="0.5,0.5"
+                         Width="240" Height="240" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Ellipse.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform x:Name="Ring3Scale" ScaleX="0.05" ScaleY="0.05"/>
+                            <RotateTransform x:Name="Ring3Rot" Angle="0"/>
+                        </TransformGroup>
+                    </Ellipse.RenderTransform>
+                </Ellipse>
+                <Ellipse x:Name="Ring4" Stroke="#FF00F0FF" StrokeThickness="0.8" Opacity="0"
+                         StrokeDashArray="4 4" RenderTransformOrigin="0.5,0.5"
+                         Width="200" Height="200" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Ellipse.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform x:Name="Ring4Scale" ScaleX="0.05" ScaleY="0.05"/>
+                            <RotateTransform x:Name="Ring4Rot" Angle="0"/>
+                        </TransformGroup>
+                    </Ellipse.RenderTransform>
+                </Ellipse>
+                <Ellipse x:Name="Ring5" Stroke="#FFB400FF" StrokeThickness="0.8" Opacity="0"
+                         StrokeDashArray="3 5" RenderTransformOrigin="0.5,0.5"
+                         Width="160" Height="160" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Ellipse.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform x:Name="Ring5Scale" ScaleX="0.05" ScaleY="0.05"/>
+                            <RotateTransform x:Name="Ring5Rot" Angle="0"/>
+                        </TransformGroup>
+                    </Ellipse.RenderTransform>
+                </Ellipse>
+                <Ellipse x:Name="Ring6" Stroke="#FF80E8FF" StrokeThickness="1" Opacity="0"
+                         StrokeDashArray="2 2" RenderTransformOrigin="0.5,0.5"
+                         Width="120" Height="120" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Ellipse.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform x:Name="Ring6Scale" ScaleX="0.05" ScaleY="0.05"/>
+                            <RotateTransform x:Name="Ring6Rot" Angle="0"/>
+                        </TransformGroup>
+                    </Ellipse.RenderTransform>
+                </Ellipse>
+            </Grid>
+
+            <!-- L7: logo group (assembled from polygon shards) -->
+            <Grid x:Name="LogoGroup" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="CORE_AIM_PRO"
+                               FontFamily="{StaticResource DisplayFont}"
+                               FontSize="56" FontWeight="Bold"
+                               Foreground="#FFFFFFFF"
+                               HorizontalAlignment="Center">
+                        <TextBlock.Effect>
+                            <DropShadowEffect Color="#FF00F0FF" BlurRadius="22" ShadowDepth="0" Opacity="0.95"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+                    <Rectangle Height="2" Width="0" x:Name="UnderlineBar"
+                               HorizontalAlignment="Center"
+                               Fill="{StaticResource PlasmaBrush}"
+                               Margin="0,4,0,0">
+                        <Rectangle.Effect>
+                            <DropShadowEffect Color="#FFB400FF" BlurRadius="10" ShadowDepth="0"/>
+                        </Rectangle.Effect>
+                    </Rectangle>
+                    <TextBlock Text="ASSISTIVE  TARGETING  SYSTEM"
+                               Foreground="{StaticResource ElectricBrush}"
+                               FontFamily="{StaticResource MonoFont}"
+                               FontSize="11"
+                               HorizontalAlignment="Center"
+                               Margin="0,8,0,0"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- L8: collapse flash -->
+            <Rectangle x:Name="Flash"
+                       Fill="#FFFFFFFF"
+                       Opacity="0"/>
+        </Grid>
+    </Border>
+</Window>

@@ -1,0 +1,191 @@
+<Window x:Class="Core_Aim.Views.Splash.SplashNeuralBootWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Core Aim" Width="640" Height="480"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="NoResize"
+        UseLayoutRounding="True"
+        TextOptions.TextFormattingMode="Display">
+
+    <Border IsHitTestVisible="False" CornerRadius="0">
+        <Grid x:Name="Root" ClipToBounds="True">
+
+            <!-- L1: void background -->
+            <Rectangle Fill="{StaticResource VoidBrush}"/>
+
+            <!-- L2: hex grid (revealed by mask animation) -->
+            <Rectangle x:Name="HexLayer"
+                       Fill="{StaticResource HexGridBrushDense}"
+                       Opacity="0">
+                <Rectangle.OpacityMask>
+                    <RadialGradientBrush x:Name="HexMask"
+                                         Center="0.5,0.5" GradientOrigin="0.5,0.5"
+                                         RadiusX="0.05" RadiusY="0.05">
+                        <GradientStop Color="#FFFFFFFF" Offset="0.0"/>
+                        <GradientStop Color="#FFFFFFFF" Offset="0.85"/>
+                        <GradientStop Color="#00FFFFFF" Offset="1.0"/>
+                    </RadialGradientBrush>
+                </Rectangle.OpacityMask>
+            </Rectangle>
+
+            <!-- L3: vignette -->
+            <Rectangle Fill="{StaticResource VignetteBrush}"/>
+
+            <!-- L4: scanlines (subtle) -->
+            <Rectangle Opacity="0.06">
+                <Rectangle.Fill>
+                    <DrawingBrush TileMode="Tile" Viewport="0,0,4,4" ViewportUnits="Absolute" Stretch="None">
+                        <DrawingBrush.Drawing>
+                            <GeometryDrawing Brush="#FF00F0FF">
+                                <GeometryDrawing.Geometry>
+                                    <RectangleGeometry Rect="0,0,4,1"/>
+                                </GeometryDrawing.Geometry>
+                            </GeometryDrawing>
+                        </DrawingBrush.Drawing>
+                    </DrawingBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+
+            <!-- L5: central blink dot (phase 1) -->
+            <Ellipse x:Name="BootDot"
+                     Width="6" Height="6"
+                     Fill="{StaticResource ElectricBrush}"
+                     HorizontalAlignment="Center" VerticalAlignment="Center"
+                     Opacity="0">
+                <Ellipse.Effect>
+                    <DropShadowEffect Color="#FF00F0FF" BlurRadius="14" ShadowDepth="0"/>
+                </Ellipse.Effect>
+            </Ellipse>
+
+            <!-- L6: scanline sweep -->
+            <Rectangle x:Name="Scanline"
+                       Height="2"
+                       VerticalAlignment="Top"
+                       Fill="{StaticResource ElectricBrush}"
+                       Opacity="0">
+                <Rectangle.Effect>
+                    <BlurEffect Radius="6"/>
+                </Rectangle.Effect>
+                <Rectangle.RenderTransform>
+                    <TranslateTransform x:Name="ScanlineY" Y="0"/>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+
+            <!-- L7: telemetry boot log (bottom-left) -->
+            <StackPanel x:Name="BootLog"
+                        HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                        Margin="42,0,0,72"
+                        Opacity="0">
+                <TextBlock x:Name="BootLine0" Text=""
+                           Foreground="{StaticResource ElectricBrush}"
+                           FontFamily="{StaticResource MonoFont}"
+                           FontSize="11"/>
+                <TextBlock x:Name="BootLine1" Text=""
+                           Foreground="{StaticResource ElectricBrush}"
+                           FontFamily="{StaticResource MonoFont}"
+                           FontSize="11"/>
+                <TextBlock x:Name="BootLine2" Text=""
+                           Foreground="{StaticResource ElectricBrush}"
+                           FontFamily="{StaticResource MonoFont}"
+                           FontSize="11"/>
+                <TextBlock x:Name="BootLine3" Text=""
+                           Foreground="{StaticResource ElectricBrush}"
+                           FontFamily="{StaticResource MonoFont}"
+                           FontSize="11"/>
+                <TextBlock x:Name="BootLine4" Text=""
+                           Foreground="{StaticResource ElectricBrush}"
+                           FontFamily="{StaticResource MonoFont}"
+                           FontSize="11"/>
+            </StackPanel>
+
+            <!-- L8: logo reveal group -->
+            <StackPanel x:Name="LogoGroup"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Opacity="0">
+                <StackPanel.RenderTransform>
+                    <TranslateTransform x:Name="LogoOffset" X="0" Y="-12"/>
+                </StackPanel.RenderTransform>
+
+                <!-- Magenta channel ghost (RGB split) -->
+                <TextBlock x:Name="LogoMagenta"
+                           Text="CORE_AIM_PRO"
+                           FontFamily="{StaticResource DisplayFont}"
+                           FontSize="56" FontWeight="Bold"
+                           Foreground="#FFB400FF"
+                           HorizontalAlignment="Center"
+                           Opacity="0.6">
+                    <TextBlock.RenderTransform>
+                        <TranslateTransform X="-3" Y="0"/>
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+
+                <!-- Cyan channel ghost (RGB split) -->
+                <TextBlock x:Name="LogoCyan"
+                           Text="CORE_AIM_PRO"
+                           FontFamily="{StaticResource DisplayFont}"
+                           FontSize="56" FontWeight="Bold"
+                           Foreground="#FF00F0FF"
+                           HorizontalAlignment="Center"
+                           Margin="0,-72,0,0"
+                           Opacity="0.6">
+                    <TextBlock.RenderTransform>
+                        <TranslateTransform X="3" Y="0"/>
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+
+                <!-- White core (final reveal) -->
+                <TextBlock x:Name="LogoCore"
+                           Text="CORE_AIM_PRO"
+                           FontFamily="{StaticResource DisplayFont}"
+                           FontSize="56" FontWeight="Bold"
+                           Foreground="#FFFFFFFF"
+                           HorizontalAlignment="Center"
+                           Margin="0,-72,0,0">
+                    <TextBlock.Effect>
+                        <DropShadowEffect Color="#FF00F0FF" BlurRadius="22" ShadowDepth="0" Opacity="0.95"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+
+                <!-- Subtitle -->
+                <TextBlock x:Name="SubLine"
+                           Text=""
+                           Foreground="{StaticResource ElectricBrush}"
+                           FontFamily="{StaticResource MonoFont}"
+                           FontSize="11"
+                           HorizontalAlignment="Center"
+                           Margin="0,8,0,0"/>
+            </StackPanel>
+
+            <!-- L9: corner brackets -->
+            <Path x:Name="BrkTL" Stroke="{StaticResource ElectricBrush}" StrokeThickness="1.5"
+                  Data="M 0,22 L 0,0 L 22,0"
+                  Margin="14,14,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"
+                  Opacity="0"/>
+            <Path x:Name="BrkTR" Stroke="{StaticResource ElectricBrush}" StrokeThickness="1.5"
+                  Data="M 0,0 L 22,0 L 22,22"
+                  Margin="0,14,14,0" HorizontalAlignment="Right" VerticalAlignment="Top"
+                  Opacity="0"/>
+            <Path x:Name="BrkBL" Stroke="{StaticResource ElectricBrush}" StrokeThickness="1.5"
+                  Data="M 0,0 L 0,22 L 22,22"
+                  Margin="14,0,0,14" HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                  Opacity="0"/>
+            <Path x:Name="BrkBR" Stroke="{StaticResource ElectricBrush}" StrokeThickness="1.5"
+                  Data="M 0,22 L 22,22 L 22,0"
+                  Margin="0,0,14,14" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                  Opacity="0"/>
+
+            <!-- L10: glitch flash overlay -->
+            <Rectangle x:Name="GlitchFlash"
+                       Fill="#FF00F0FF"
+                       Opacity="0"/>
+
+            <!-- L11: final wipe overlay (top→bottom void wipe) -->
+            <Rectangle x:Name="WipeOverlay"
+                       Fill="{StaticResource VoidBrush}"
+                       Opacity="0"/>
+        </Grid>
+    </Border>
+</Window>
