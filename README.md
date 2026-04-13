@@ -108,9 +108,19 @@ A full walkthrough, video guides and community help are available on the officia
 
 ---
 
+## 🖼️ Interface
+
+| Aim Assist | Label Maker | Training Studio |
+|:---:|:---:|:---:|
+| ![Aim Assist](screenshots/aim_assist.png) | ![Label Maker](screenshots/label_maker.png) | ![Training Studio](screenshots/training_studio.png) |
+
+---
+
 ## 💬 Community & Support
 
 Join the official Discord server to access downloads, configuration help, accessibility discussions, bug reports and announcements.
+
+[![Discord](https://img.shields.io/badge/Discord-Join%20Server-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/5rcTzjFF)
 
 ---
 
