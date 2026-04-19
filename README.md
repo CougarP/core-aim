@@ -81,7 +81,7 @@ Grab the latest build from the [**Releases**](https://github.com/CougarP/Core_Ai
 |---|---|
 | 🔹 **Titan Two** | ✅ Supported |
 | 🔹 **KMBox Net** | ✅ Supported |
-| 🔹 **MAKCU (CH9329)** | 🔜 Upcoming release (support planned for the near future) |
+| 🔹 **MAKCU (CH9329)** | ✅ Supported |
 
 > **💡 Titan Two users:** Core_Aim_pro talks to the Titan Two **directly**, so you do **not** need GTuner IV, scripts or any companion software running. Just plug the Titan Two in and start the app.
 
